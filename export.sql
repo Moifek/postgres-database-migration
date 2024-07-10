@@ -39,7 +39,8 @@ SELECT
 			) metas
 		), '[]'::json
 	) metadata,
-	json_build_object(
+	case when a.uuid is null then null
+	else json_build_object(
 		'uuid', a.uuid,
 		'status', a.status,
 		'createdAt',json_build_object('$date', a.created_at::TIMESTAMPTZ),
@@ -71,7 +72,7 @@ SELECT
 						ORDER BY ap.prediction_order
 			) preds
 		)
-	) as analysis,
+	)END as analysis,
 	case 
 		when u.id is null then null
 		else
