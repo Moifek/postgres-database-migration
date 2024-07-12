@@ -43,9 +43,9 @@ INI_FILE="variables.ini"
 read_ini_file "$INI_FILE"
 
 # Check if the necessary variables are set
-if [ -z "$postgresDatabase_host" ] || [ -z "$postgresDatabase_port" ] || \
-   [ -z "$postgresDatabase_name" ] || [ -z "$postgresDatabase_schema" ] || \
-   [ -z "$postgresDatabase_username" ] || \
+if [ -z "$postgresTestDatabase_host" ] || [ -z "$postgresTestDatabase_port" ] || \
+   [ -z "$postgresTestDatabase_name" ] || [ -z "$postgresTestDatabase_schema" ] || \
+   [ -z "$postgresTestDatabase_username" ] || \
    [ -z "$MongoDatabase_username" ] || [ -z "$MongoDatabase_port" ] || \
    [ -z "$MongoDatabase_host" ] || [ -z "$MongoDatabase_name" ] || \
    [ -z "$MongoDatabase_password" ] || [ -z "$MongoDatabase_collection" ]; then
@@ -72,11 +72,11 @@ fi
 PAGE_SIZE=${pagination_pageSize}
 PAGE_NUMBER=${pagination_pageNumber}
 LAST_SUCCESSFUL_ITERATION=${pagination_pageNumber}
-DATABASE_HOST=${postgresDatabase_host}
-DATABASE_PORT=${postgresDatabase_port}
-DATABASE_NAME=${postgresDatabase_name}
-DATABASE_SCHEMA=${postgresDatabase_schema}
-DATABASE_USERNAME=${postgresDatabase_username}
+DATABASE_HOST=${postgresTestDatabase_host}
+DATABASE_PORT=${postgresTestDatabase_port}
+DATABASE_NAME=${postgresTestDatabase_name}
+DATABASE_SCHEMA=${postgresTestDatabase_schema}
+DATABASE_USERNAME=${postgresTestDatabase_username}
 Iterator=${pagination_pageNumber}
 MONGO_DB_NAME=${MongoDatabase_name}
 #MONGO_DB_USER=${MongoDatabase_username}
@@ -104,7 +104,7 @@ execute_sql() {
         return 1
     fi
 
-    if [[ $psql_exit_status -eq 0 ]]; then
+    if [[ $psql_exit_status -eq 0 && $(cat $output_file | wc -c) -gt 1 ]]; then
         echo "[INFO][$(date +"%Y-%m-%d %T")] Data exported to $output_file" | tee -a "logs/$(date +"%Y-%m-%d")/execution.log"
         return 0
     else

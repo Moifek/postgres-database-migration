@@ -1,0 +1,4 @@
+[INFO][2024-07-11 11:08:51] moifek-localscript-test s3 bucket already created
+[INFO][2024-07-11 11:08:53] Syncing variables file
+[INFO][2024-07-11 11:08:54] Successfully synced variables file to s3
+[INFO][2024-07-11 11:08:54] syncing logs to s3 bucket : moifek-localscript-test

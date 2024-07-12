@@ -1,6 +1,5 @@
 error-page*
 temp_error*
-execution.log
-init_errors.log
 error-on*
 exported*
+logs/*

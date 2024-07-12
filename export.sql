@@ -116,10 +116,10 @@ SELECT
 	from images i
 	left join images_user_links iu on i.id = iu.image_id
 	left join images_company_links icomp on i.id = icomp.image_id
-	inner join images_components comp on i.id = comp.entity_id
+	left join images_components comp on i.id = comp.entity_id
 	left join images_collection_links icolL on i.id = icolL.image_id
 	left join analyses_image_links ai on i.id = ai.image_id
-	inner join components_image_image_details compFile on compFile.id = comp.component_id AND comp.field = 'info'
+	left join components_image_image_details compFile on compFile.id = comp.component_id AND comp.field = 'info'
 	left join image_collections ic on icolL.image_collection_id = ic.id 
 	left join up_users u on u.id  = iu."user_id" 
 	left join companies c on c.id  = icomp."company_id" 
